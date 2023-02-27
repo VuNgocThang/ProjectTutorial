@@ -273,12 +273,12 @@ public class PlayerController : MonoBehaviour
         if (vDirection > .1f && !topLadders)
         {
             rb.velocity = new Vector2(0f, vDirection * climbSpeed);
-            anim.speed = 1f;
+            anim.speed = 10f;
         }
         else if (vDirection < -.1f && !bottomLadders)
         {
             rb.velocity = new Vector2(0f, vDirection * climbSpeed);
-            anim.speed = 1f;
+            anim.speed = 10f;
 
         }
         else { 

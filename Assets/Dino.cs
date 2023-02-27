@@ -56,8 +56,10 @@ public class Dino : Enemy
     void Rotate()
     {
         rb.velocity = Vector3.zero;
-        /*Vector3 rotationVector = new Vector3(0, 0, z);
-        transform.rotation = Quaternion.Euler(rotationVector);*/
+        Vector3 rotationVector = new Vector3(0, 0, z);
+        transform.rotation = Quaternion.Euler(rotationVector);
+       //transform.position = Vector2.MoveTowards(transform.position,)
+
     }
 
 
