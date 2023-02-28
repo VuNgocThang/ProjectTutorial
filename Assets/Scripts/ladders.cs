@@ -53,25 +53,3 @@ public class ladders : MonoBehaviour
     }
 
 }
-
-/*void Jump()
-{
-    if (isGrounded)
-    {
-        multiJump = true;
-        availableJumps--;
-        rb.velocity = new Vector2(lengthJump, heightJump);
-        anim.SetBool("Jumping", true);
-    }
-    else
-    {
-        if (multiJump && availableJumps > 0)
-        {
-            availableJumps--;
-            rb.velocity = new Vector2(lengthJump, heightJump);
-            anim.SetBool("Jumping", true);
-
-        }
-    }
-}
-*/

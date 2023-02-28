@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 
 
 {
-    
+
     //public Animator anim;
     public enum State
     {
@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jump = 15f;
     [SerializeField] private float speed = 7f;
     [SerializeField] private float hurtForce = 10f;
-    [SerializeField] private string name;
 
     public int availableJump;
     public int totalJumps = 3;
@@ -54,7 +53,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    // Update is called once per frame
     void Update()
     {
         if (state == State.Climb)
@@ -65,13 +63,11 @@ public class PlayerController : MonoBehaviour
         {
             Movement();
         }
-        //  SetAnimation();
         VelocityState();
-        //anim.SetInteger("state", (int)state);
     }
     private void FixedUpdate()
     {
-        CheckGround();  
+        CheckGround();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -106,6 +102,7 @@ public class PlayerController : MonoBehaviour
             {
                 anim.Play("hurt");
                 state = State.Hurt;
+                availableJump = totalJumps;
 
                 HeartsHandle();
                 if (other.gameObject.transform.position.x > transform.position.x)
@@ -129,6 +126,7 @@ public class PlayerController : MonoBehaviour
         if (PermanentUI.perm.hearts <= 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            PlayerPrefs.DeleteAll();
         }
     }
 
@@ -143,69 +141,41 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
-            transform.localScale = new Vector2(-1, 1);
+            MoveLeft();
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            rb.velocity = new Vector2(speed, rb.velocity.y);
-            transform.localScale = new Vector2(1, 1);
-
+            MoveRight();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && availableJump > 0)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            availableJump--;
             JumpUp();
             anim.Play("jump_up");
         }
     }
-      /*  if (Input.GetKeyDown(KeyCode.Space) )
-        {
-            rb.velocity = new Vector2(rb.velocity.x, forceJump);
-            state = State.JumpUp;
-            anim.Play("jump_up");
-        }*/
-    /* void SetAnimation()
-     {
-
-         if (rb.velocity.magnitude < 0.1f)
-         {
-             anim.Play("idle");
-             state = State.Idle;
-         }
-         else if (rb.velocity.y > 0.1f)
-         {
-             anim.Play("jump_up");
-             state = State.JumpUp;
-         }
-         else if (rb.velocity.y < -0.1f)
-         {
-             anim.Play("jump_fall");
-             state = State.JumpFall;
-         }
-         else if (rb.velocity.x != 0 && rb.velocity.y <= 0.1f)
-         {
-             anim.Play("run");
-             state = State.Running;
-
-         }
-         *//* if (Mathf.Abs(rb.velocity.x) < 0.1f)
-          {
-              if (state == State.Hurt)
-              {
-                  state = State.Idle;
-              }
-          }*//*
-
-     }*/
-
-    private void JumpUp()
+    public void JumpUp()
     {
-        
-        rb.velocity = new Vector2(rb.velocity.x, jump);
-        state = State.JumpUp;
+        if (availableJump > 0)
+        {
+
+            rb.velocity = new Vector2(rb.velocity.x, jump);
+            state = State.JumpUp;
+            availableJump--;
+        }
     }
+
+    public void MoveLeft()
+    {
+        rb.velocity = new Vector2(-speed, rb.velocity.y);
+        transform.localScale = new Vector2(-1, 1);
+    }
+    public void MoveRight()
+    {
+        rb.velocity = new Vector2(speed, rb.velocity.y);
+        transform.localScale = new Vector2(1, 1);
+    }
+
     private void VelocityState()
     {
         if (state == State.Climb)
@@ -249,6 +219,33 @@ public class PlayerController : MonoBehaviour
             anim.Play("idle");
         }
     }
+    /* private void VelocityState()
+     {
+         if (state == State.Climb)
+         {
+             Climb();
+             anim.Play("climb");
+         }
+         if(rb.velocity.y> 0.1f)
+         {
+             anim.Play("jump_up");
+
+         }
+         else if(rb.velocity.y < 0.1f && !coll.IsTouchingLayers(ground))
+         {
+             anim.Play("jump_fall");
+         }
+         else if (rb.velocity.x != 0 && rb.velocity.y <= 0.1f)
+         {
+             state = State.Running;
+             anim.Play("run");
+         }
+         if(rb.velocity.y < 0.1f && coll.IsTouchingLayers(ground))
+         {
+             anim.Play("idle");
+         }
+
+     }*/
     private IEnumerator ResetPower()
     {
         yield return new WaitForSeconds(5);
@@ -267,7 +264,7 @@ public class PlayerController : MonoBehaviour
             anim.speed = 1f;
             rb.velocity = new Vector2(rb.velocity.x, jump);
             state = State.JumpUp;
-            
+
         }
         float vDirection = Input.GetAxis("Vertical");
         if (vDirection > .1f && !topLadders)
@@ -281,7 +278,8 @@ public class PlayerController : MonoBehaviour
             anim.speed = 10f;
 
         }
-        else { 
+        else
+        {
             anim.speed = 0f;
             rb.velocity = Vector2.zero;
         }

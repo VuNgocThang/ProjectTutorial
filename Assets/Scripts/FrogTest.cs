@@ -8,7 +8,6 @@ public class FrogTest : Enemy
     [SerializeField] private float rightCap = 60;
     [SerializeField] private float heightJump = 10f;
     [SerializeField] private float lengthJump = 3f;
-    private float thrust = 1f;
     [SerializeField] private LayerMask ground;
     [SerializeField] private bool facingLeft = true;
     public int availableJump;
@@ -25,7 +24,7 @@ public class FrogTest : Enemy
 
     private void Awake()
     {
-        availableJump = totalJumps ;
+        availableJump = totalJumps;
     }
 
     protected override void Start()
@@ -53,7 +52,7 @@ public class FrogTest : Enemy
                     transform.localScale = new Vector3(1, 1);
                 }
 
-                if (availableJump > 0 )
+                if (availableJump > 0)
                 {
                     /* if(availableJump > 0)
                      {
@@ -66,7 +65,6 @@ public class FrogTest : Enemy
                     if (availableJump % 2 == 0)
                     {
                         jump(1);
-                        Debug.Log("jumped");
                         anim.SetBool("Jumping", true);
                         transform.localScale = new Vector3(-1, 1);
 
@@ -74,11 +72,10 @@ public class FrogTest : Enemy
                     else
                     {
                         jump(-1);
-                        Debug.Log("jumped");
                         anim.SetBool("Jumping", true);
                         transform.localScale = new Vector3(1, 1);
                     }
-                    
+
                 }
 
 
@@ -109,7 +106,6 @@ public class FrogTest : Enemy
                     if (availableJump % 2 == 0)
                     {
                         jump(-1);
-                        Debug.Log("jumped");
                         anim.SetBool("Jumping", true);
                         transform.localScale = new Vector3(1, 1);
 
@@ -117,7 +113,6 @@ public class FrogTest : Enemy
                     else
                     {
                         jump(1);
-                        Debug.Log("jumped");
                         anim.SetBool("Jumping", true);
                         transform.localScale = new Vector3(-1, 1);
 
@@ -133,12 +128,11 @@ public class FrogTest : Enemy
         }
     }
     void jump(int hor)
-    {        
+    {
         availableJump--;
         //rb.AddForce(new Vector2(lengthJump* hor, heightJump), ForceMode2D.Impulse);
         rb.velocity = new Vector2(lengthJump * hor, heightJump);
         state = State.jump;
-        Debug.Log("available");
     }
     void setAnim()
     {
@@ -152,7 +146,7 @@ public class FrogTest : Enemy
             }
         }
 
-        if (coll.IsTouchingLayers(ground) )
+        if (coll.IsTouchingLayers(ground))
         {
             state = State.idle;
             anim.SetBool("Falling", false);

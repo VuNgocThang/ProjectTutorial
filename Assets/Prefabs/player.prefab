@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5760016525653136191}
   m_Layer: 0
   m_Name: player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,7 +120,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.04383731, y: -0.26302528}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -131,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.0625, y: 2}
+  m_Size: {x: 1.1857486, y: 1.4739494}
   m_EdgeRadius: 0
 --- !u!114 &5760016525653136188
 MonoBehaviour:
@@ -145,13 +145,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1fd906b9dfd1b34885b7c4b679c8ade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 5760016525653136178}
   state: 3
   canClimb: 0
   bottomLadders: 0
   topLadders: 0
   ladders: {fileID: 0}
   climbSpeed: 3
+  rb: {fileID: 5760016525653136178}
   ground:
     serializedVersion: 2
     m_Bits: 64
@@ -159,7 +159,6 @@ MonoBehaviour:
   jump: 15
   speed: 7
   hurtForce: 10
-  name: 
   availableJump: 0
   totalJumps: 3
   isGrounded: 0
